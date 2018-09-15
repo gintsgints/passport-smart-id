@@ -1,0 +1,15 @@
+{
+  "name": "passport-smart-id",
+  "version": "1.0.0",
+  "description": "SmartId Passport authentification strategy",
+  "main": "index.js",
+  "repository": "https://github.com/gintsgints/passport-smart-id.git",
+  "author": "Gints Polis <polis.gints@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
