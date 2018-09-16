@@ -1,6 +1,7 @@
 import { Config } from './config'
 import { Request } from './request'
 import Axios from 'axios'
+import Crypto from 'crypto'
 
 export class Auth {
   private config: Config
@@ -16,7 +17,18 @@ export class Auth {
   }
 
   public async auth (displayText: string): Promise<Object> {
-    let tst = await Axios.post(this.config.baseURL + '/authentication/pno/' + this.request.country + '/' + this.request.idNumber)
+    let buf = await Crypto.randomBytes(64)
+    let digest = await Crypto.createHash('sha512').update(buf).digest('base64')
+    let tst = await Axios.post(
+      this.config.baseURL + '/authentication/pno/' + this.request.country + '/' + this.request.idNumber,
+      Object.assign(
+        {
+          hash: digest,
+          hashType: 'SHA512',
+          displayText: (typeof displayText === 'string' ? displayText : undefined) 
+        },
+        this.config.requestParams)
+    )
     return tst
   }
 }
